@@ -9,8 +9,9 @@ on:
     branches: [ "dev1" ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-env:
-  use-environment: Dev
+
+env: 
+  environemnt_to_use: Dev
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -18,7 +19,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    environment: ${{env.use-environment}}
+    environment: ${{env.environemnt_to_use}}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -29,4 +30,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo "Hello World"
-          echo ${{var.MYVARIABLE}}
+          echo "${{var.MYVARIABLE}}"
