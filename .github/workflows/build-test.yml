@@ -9,6 +9,8 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "dev1" ]
+    paths: 
+      - './.github/workflows/build-test.yml'
 
 # env: 
 #   environemnt_to_use: Dev
