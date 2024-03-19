@@ -22,8 +22,8 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    environment: ${{ github.ref == 'refs/heads/main' && 'Prod' || 'Dev' }}
-    #environment: Dev
+    #environment: ${{ github.ref == 'refs/heads/main' && 'Prod' || 'Dev' }}
+    environment: ${{ github.env.MY_ENV_VAR }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,4 +35,4 @@ jobs:
         run: |
           echo "Hello World"
           echo "${{ vars.MYVARIABLE }}"
-          echo "Environment ${{ env }}"
+          echo "Environment ${{ env.MY_ENV_VAR }}"
