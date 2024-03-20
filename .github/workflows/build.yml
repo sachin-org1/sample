@@ -12,44 +12,44 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    environment: ${{ github.ref == 'refs/heads/main' && 'Prod' || 'Dev' }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build the App
-        run: |
-          echo "building the App D-v${{ github.run_number }}"
-          echo "${{ vars.MYVARIABLE }}"
+  # build:
+  #   runs-on: ubuntu-latest
+  #   environment: ${{ github.ref == 'refs/heads/main' && 'Prod' || 'Dev' }}
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Build the App
+  #       run: |
+  #         echo "building the App D-v${{ github.run_number }}"
+  #         echo "${{ vars.MYVARIABLE }}"
   
-  tagthebuild:
-    needs: build
-    if: github.ref == 'refs/heads/dev1'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
+  # tagthebuild:
+  #   needs: build
+  #   if: github.ref == 'refs/heads/dev1'
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
       
-    environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
+  #   environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
 
-    steps: 
-      - name: Check out the repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+  #   steps: 
+  #     - name: Check out the repository
+  #       uses: actions/checkout@v4
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Configure Git with GitHub token
-        run: |
-          git config --global user.name "${{ github.actor }}"
-          git remote set-url origin "https://github.com/${{ github.repository }}"
+  #     - name: Configure Git with GitHub token
+  #       run: |
+  #         git config --global user.name "${{ github.actor }}"
+  #         git remote set-url origin "https://github.com/${{ github.repository }}"
 
-      - name: Create tag
-        id: create-tag
-        run: |
-          git tag -a D-v${{ github.run_number }} -m "Dev Release v${{ github.run_number }}"
-          git push --tags
+  #     - name: Create tag
+  #       id: create-tag
+  #       run: |
+  #         git tag -a D-v${{ github.run_number }} -m "Dev Release v${{ github.run_number }}"
+  #         git push --tags
   
   setthetagvar:
-    needs: build
+    # needs: tagthebuild
     if: github.ref == 'refs/heads/dev1'
     runs-on: ubuntu-latest
     permissions: read-all
@@ -57,7 +57,7 @@ jobs:
       
     steps:    
       - name: Set Environment variable with Create Tag
-        if: steps.create-tag.outcome == 'success'
+        # if: steps.create-tag.outcome == 'success'
         env:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME:  ${{ github.repository }}
