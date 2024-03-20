@@ -21,4 +21,3 @@ jobs:
         run: |
           echo "Hello World!"
           echo "${{ vars.MYVARIABLE }}"
-

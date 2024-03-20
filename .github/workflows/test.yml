@@ -1,17 +1,19 @@
 name: Test
 
 on: 
-  pull_request:
-    types:
-      - closed
-
+  # pull_request:
+  #   types:
+  #     - closed
+  push:
+    branches:
+      - main
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   test:
-    if: github.ref == 'refs/heads/main' && ${{ github.event.pull_request.merged }}
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
     steps:
