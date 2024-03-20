@@ -19,6 +19,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Run a multi-line script
         run: |
-          echo "Hello World!"
+          echo "Hello World"
           echo "${{ vars.MYVARIABLE }}"
 
