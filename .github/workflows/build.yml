@@ -5,7 +5,7 @@ on:
     branches: 
       - 'dev1'
     paths: 
-      - '.github/workflows/build-test.yml'
+      - '.github/workflows/build.yml'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -21,4 +21,3 @@ jobs:
         run: |
           echo "Hello World!"
           echo "${{ vars.MYVARIABLE }}"
-
