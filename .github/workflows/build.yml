@@ -49,9 +49,9 @@ jobs:
         run: |
           echo "Repo URL :${{ github.repositoryUrl }}"
           echo "Repo URL :${{ github.repository }}"
-          git clone https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com:sachin-sample-org/sample.git --branch=main sampleapp
+          git clone https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com/sachin-sample-org/sample.git --branch=main sampleapp
           cd sampleapp
-          git remote set-url origin https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com:sachin-sample-org/sample.git
+          git remote set-url origin https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com/sachin-sample-org/sample.git
           git tag -a S-v${{ github.run_number }} -m "Stage Release v${{ github.run_number }}"
           git push --tags
         # env:
