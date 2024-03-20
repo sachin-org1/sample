@@ -29,6 +29,8 @@ jobs:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
+    permissions:
+      actions: write
     steps: 
       - name: Create tag
         uses: actions/github-script@v5
