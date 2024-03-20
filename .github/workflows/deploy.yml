@@ -1,6 +1,11 @@
 name: Deploy
 
 on: 
+  push:
+    branches:
+      - main
+    tags:
+      - 'S-v*'
   workflow_dispatch:
   
 concurrency:
@@ -13,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'Prod' || 'Dev' }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run a multi-line script
         run: |
-          echo "Hello World"
+          echo "Deploying App"
           echo "${{vars.MYVARIABLE}}"
