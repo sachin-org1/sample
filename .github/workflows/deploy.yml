@@ -1,10 +1,15 @@
 name: Deploy
 
 on: 
-  push:
-    tags:
-      - 'S-v*'
+  # create:
+  workflow_run:
+    workflows: [Test]
+    types:
+      - completed
   workflow_dispatch:
+
+env:
+  tagtodeploy: ${{ vars.LAST_TAG_VERSION }}
   
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -12,12 +17,14 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'Prod' || 'Dev' }}
     steps:
       - uses: actions/checkout@v4
       - name: Deploy App
         run: |
-          echo "Deploying App"
+          echo "Reference : ${{ github.ref }}"
+          echo "Reference Type : ${{ github.ref_type }}"
+          echo "Deploying App with tag ${{ env.tagtodeploy }}"
           echo "${{vars.MYVARIABLE}}"
