@@ -28,6 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      
     environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
 
     steps: 
@@ -46,7 +47,15 @@ jobs:
         run: |
           git tag -a D-v${{ github.run_number }} -m "Dev Release v${{ github.run_number }}"
           git push --tags
+  
+  setthetagvar:
+    needs: build
+    if: github.ref == 'refs/heads/dev1'
+    runs-on: ubuntu-latest
+    permissions: read-all
+    environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
       
+    steps:    
       - name: Set Environment variable with Create Tag
         if: steps.create-tag.outcome == 'success'
         env:
