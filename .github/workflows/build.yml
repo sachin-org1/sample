@@ -62,4 +62,12 @@ jobs:
           echo "SECRET VALUE : ${{ env.SECRET_VALUE}}"
           echo "GITHUB TOKEN : ${{ env.GITHUB_TOKEN }}"
 
+          curl -X PUT \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -d "{\"encrypted_value\":\"$(echo -n "$SECRET_VALUE" | openssl enc -base64)\",\"key_id\":null}" \
+            "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/secrets/$SECRET_NAME"
+
+          echo "SECRET VALUE : ${{ vars.SECRET_NAME }}"
+
 
