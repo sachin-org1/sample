@@ -3,7 +3,7 @@ name: Deploy
 on: 
   # create:
   workflow_run:
-    workflows: ["Build"]
+    workflows: [Build]
     types:
       - completed
   workflow_dispatch:
