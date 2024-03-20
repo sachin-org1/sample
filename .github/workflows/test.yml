@@ -56,7 +56,7 @@ jobs:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME:  ${{ github.repository }}
           VARIABLE_NAME: LAST_TAG_VERSION
-          VARIABLE_VALUE: D-v${{ github.run_number }}
+          VARIABLE_VALUE: S-v${{ github.run_number }}
           PAT_TOKEN: ${{ secrets.REPO_VAR_REST_API_TOKEN }}
         run: |
           # echo "REPO OWNER : ${{ env.REPO_OWNER }}"
