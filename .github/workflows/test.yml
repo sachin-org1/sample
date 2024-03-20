@@ -10,17 +10,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  
   testing:
     name: testing
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
+    
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run Tests
         run: |
           echo "Hello World!"
           echo "${{ vars.MYVARIABLE }}"
+  
   
   tagthebuild:
     needs: testing
@@ -32,7 +35,7 @@ jobs:
 
     steps: 
       - name: Check out the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
