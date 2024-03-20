@@ -32,6 +32,8 @@ jobs:
     permissions:
       contents: write
     environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
+    env:
+      TAG_VALUE: S-v${{ github.run_number }}
 
     steps: 
       - name: Check out the repository
@@ -47,7 +49,7 @@ jobs:
       - name: Create tag
         id: create-tag
         run: |
-          git tag -a S-v${{ github.run_number }} -m "Stage Release v${{ github.run_number }}"
+          git tag -a ${{ env.TAG_VALUE }} -m "Stage Release ${{ env.TAG_VALUE }}"
           git push --tags
 
       - name: Set Environment variable with created Tag
@@ -56,13 +58,13 @@ jobs:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME:  ${{ github.repository }}
           VARIABLE_NAME: LAST_TAG_VERSION
-          VARIABLE_VALUE: D-v${{ github.run_number }}
+          VARIABLE_VALUE: S-v${{ github.run_number }}
           PAT_TOKEN: ${{ secrets.REPO_VAR_REST_API_TOKEN }}
         run: |
           # echo "REPO OWNER : ${{ env.REPO_OWNER }}"
           # echo "REPO NAME : ${{ env.REPO_NAME }}"
           # echo "VARIABLE NAME : ${{ env.VARIABLE_NAME }}"
-          # echo "VARIABLE VALUE : ${{ env.VARIABLE_VALUE}}"
+          # echo "VARIABLE VALUE : ${{ env.TAG_VALUE}}"
           # echo "PAT TOKEN : ${{ env.PAT_TOKEN }}"
           # echo "URL: https://api.github.com/repos/${{ env.REPO_NAME }}/actions/variables/${{ env.VARIABLE_NAME }}"
 
