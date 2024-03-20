@@ -52,7 +52,8 @@ jobs:
     # needs: tagthebuild
     if: github.ref == 'refs/heads/dev1'
     runs-on: ubuntu-latest
-    permissions: read-all
+    permissions: 
+      actions: read
     environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
       
     steps:    
