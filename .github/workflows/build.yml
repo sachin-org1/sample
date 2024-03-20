@@ -5,7 +5,7 @@ on:
     branches: 
       - 'dev1'
     paths: 
-      - '.github/workflows/build.yml'
+      - '.github/workflows/**'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
