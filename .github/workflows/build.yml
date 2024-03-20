@@ -44,14 +44,25 @@ jobs:
       
       # - name: Check out the repository
       #   uses: actions/checkout@v2
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      - name: Configure Git with GitHub token
+        run: |
+          echo "Repo :${{ github.repositoryUrl }}"
+          echo "Repo URL :${{ github.repository }}"
+          echo "Repo Actor :${{ github.actor }}"
+          echo "Repo Actor Id :${{ github.actor_id }}"
+        
+          git config --global user.email "actions@github.com"
+          git config --global user.name "${{ github.actor }}"
+          git remote set-url origin "https://github.com/${{ github.repository }}"
 
       - name: Create tag
         run: |
-          echo "Repo URL :${{ github.repositoryUrl }}"
-          echo "Repo URL :${{ github.repository }}"
-          git clone https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com/sachin-sample-org/sample.git --branch=main sampleapp
-          cd sampleapp
-          git remote set-url origin https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com/sachin-sample-org/sample.git
+          # git clone https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com/sachin-sample-org/sample.git --branch=main sampleapp
+          # cd sampleapp
+          # git remote set-url origin https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com/sachin-sample-org/sample.git
           git tag -a S-v${{ github.run_number }} -m "Stage Release v${{ github.run_number }}"
           git push --tags
         # env:
