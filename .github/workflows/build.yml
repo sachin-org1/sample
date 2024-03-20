@@ -17,7 +17,7 @@ jobs:
     environment: ${{ github.ref == 'refs/heads/main' && 'Prod' || 'Dev' }}
     steps:
       - uses: actions/checkout@v3
-      - name: Run a multi-line script
+      - name: Build the App
         run: |
           echo "Hello World!"
           echo "${{ vars.MYVARIABLE }}"
