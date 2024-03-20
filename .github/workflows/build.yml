@@ -21,3 +21,38 @@ jobs:
         run: |
           echo "building the App D-v${{ github.run_number }}"
           echo "${{ vars.MYVARIABLE }}"
+  
+  tagthebuild:
+    needs: build
+    if: github.ref == 'refs/heads/dev1'
+    runs-on: ubuntu-latest
+    # permissions:
+    #   contents: write
+    environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
+
+    steps: 
+      # - name: Create tag
+      #   uses: actions/github-script@v5
+      #   with:
+      #     script: |
+      #       github.rest.git.createRef({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         ref: 'refs/tags/S-v${{ github.run_number }}',
+      #         sha: context.sha
+      #       })
+      
+      # - name: Check out the repository
+      #   uses: actions/checkout@v2
+
+      - name: Create tag
+        run: |
+          echo "Repo URL :${{ github.repositoryUrl }}"
+          echo "Repo URL :${{ github.repository }}"
+          git clone https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com:sachin-sample-org/sample.git --branch=main sampleapp
+          cd sampleapp
+          git remote set-url origin https://sachin-sample-org:${{ secrets.GITHUB_TOKEN }}@github.com:sachin-sample-org/sample.git
+          git tag -a S-v${{ github.run_number }} -m "Stage Release v${{ github.run_number }}"
+          git push --tags
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
