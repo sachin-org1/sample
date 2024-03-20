@@ -91,4 +91,4 @@ jobs:
             https://api.github.com/repos/${{ env.REPO_NAME }}/actions/variables/${{ env.VARIABLE_NAME }} \
             -d '{"name":"${{ env.VARIABLE_NAME }}","value":"${{ env.VARIABLE_VALUE}}"}'
 
-          echo "VARIABLE VALUE : ${{ vars.VARIABLE_NAME }}"
+          echo "VARIABLE VALUE : ${{ vars.LAST_TAG_VERSION }}"
