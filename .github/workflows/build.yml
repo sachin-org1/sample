@@ -74,7 +74,7 @@ jobs:
           echo "URL: https://api.github.com/repos/${{ env.REPO_NAME }}/actions/variables/${{ env.VARIABLE_NAME }}"
 
           curl -X GET \
-            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             "https://api.github.com/user"
             
           curl -L \
