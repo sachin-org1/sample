@@ -1,9 +1,7 @@
 name: Deploy
 
 on: 
-  push:
-    tags:
-      - 'S-v*'
+  # create:
   workflow_dispatch:
   
 concurrency:
