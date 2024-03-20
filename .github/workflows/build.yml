@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'Prod' || 'Dev' }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build the App
         run: |
           echo "building the App D-v${{ github.run_number }}"
@@ -32,7 +32,7 @@ jobs:
 
   #   steps: 
   #     - name: Check out the repository
-  #       uses: actions/checkout@v3
+  #       uses: actions/checkout@v4
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
 
