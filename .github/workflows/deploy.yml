@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   deploy:
-    if: github.ref_type == 'tag'
+    # if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'Prod' || 'Dev' }}
     steps:
