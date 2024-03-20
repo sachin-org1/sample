@@ -61,6 +61,7 @@ jobs:
           echo "VARIABLE NAME : ${{ env.VARIABLE_NAME }}"
           echo "VARIABLE VALUE : ${{ env.VARIABLE_VALUE}}"
           echo "GITHUB TOKEN : ${{ env.GITHUB_TOKEN }}"
+          echo "URL: https://api.github.com/repos/${{ env.REPO_OWNER }}/${{ env.REPO_NAME }}/actions/variables/${{ env.VARIABLE_NAME }}"
 
           curl -L \
             -H "Accept: application/vnd.github+json" \
