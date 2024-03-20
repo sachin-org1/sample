@@ -1,12 +1,10 @@
 name: Test
 
 on: 
-  # pull_request:
-  #   types:
-  #     - closed
-  push:
+ push:
     branches:
       - main
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -28,27 +26,22 @@ jobs:
     needs: testing
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    # permissions:
-    #   contents: write
+    permissions:
+      contents: write
     environment: ${{ github.ref == 'refs/heads/main' && 'Stage' || 'Dev' }}
 
     steps: 
-      # - name: Create tag
-      #   uses: actions/github-script@v5
-      #   with:
-      #     script: |
-      #       github.rest.git.createRef({
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         ref: 'refs/tags/S-v${{ github.run_number }}',
-      #         sha: context.sha
-      #       })
       - name: Check out the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure Git with GitHub token
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git remote set-url origin "https://github.com/${{ github.repository }}"
 
       - name: Create tag
         run: |
           git tag -a S-v${{ github.run_number }} -m "Stage Release v${{ github.run_number }}"
           git push --tags
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
