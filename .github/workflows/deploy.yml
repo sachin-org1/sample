@@ -3,7 +3,7 @@ name: Deploy
 on: 
   # create:
   workflow_run:
-    workflows: [Build]
+    workflows: [Test]
     types:
       - completed
   workflow_dispatch:
@@ -25,5 +25,6 @@ jobs:
       - name: Deploy App
         run: |
           echo "Reference : ${{ github.ref }}"
+          echo "Reference Type : ${{ github.ref_type }}"
           echo "Deploying App with tag ${{ env.tagtodeploy }}"
           echo "${{vars.MYVARIABLE}}"
